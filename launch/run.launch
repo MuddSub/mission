@@ -1,0 +1,51 @@
+<launch>
+
+  <rosparam file="$(find controls)/include/controls/pid/tune/surge.yaml" />
+  <rosparam file="$(find controls)/include/controls/pid/tune/sway.yaml" />
+  <rosparam file="$(find controls)/include/controls/pid/tune/HEAVE.yaml" />
+  <rosparam file="$(find controls)/include/controls/pid/tune/roll.yaml" />
+  <rosparam file="$(find controls)/include/controls/pid/tune/pitch.yaml" />
+  <rosparam file="$(find controls)/include/controls/pid/tune/YAW.yaml" />
+  <rosparam file="$(find controls)/include/controls/pid/tune/inputs.yaml"/>
+
+<!--  <include file="$(find imu_vn_100)/launch/vn_100_cont.launch" /> -->
+  <include file="$(find thruster_control)/launch/thrust.launch" />
+  <include file="$(find vision)/launch/cameras.launch"/>
+  <node name="pid_heave" pkg="controls" type="pid_axis" output="screen">
+    <param name="axis" value="2"/>
+    <param name="inputType" value="2"/>
+  </node>
+  <node name="pid_yaw" pkg="controls" type="pid_axis" output="screen">
+    <param name="axis" value="5"/>
+    <param name="inputType" value="0"/>
+  </node>
+  <node name="pid_sway" pkg="controls" type="pid_axis" output="screen">
+    <param name="axis" value="1"/>
+    <param name="inputType" value="0"/>
+  </node>
+  <node name="pid_surge" pkg="controls" type="pid_axis" output="screen">
+    <param name="axis" value="0"/>
+    <param name="inputType" value="0"/>
+  </node>
+	
+
+  <node name="pid_manager" pkg="controls" type="pid_manager" />
+
+  <!-- <node name="zOrientation" pkg="topic_tools" type="transform"
+    args="/imu/imu /zOrientation std_msgs/Float64 'm.orientation.z'" /> -->
+
+ <node name="yaw_correct" pkg="controls" type="Yaw.py" output="screen" />
+<node name="smach" pkg="controls" type="StateMachine.py" output="screen"/>
+
+
+
+
+  <!-- <node name="rqt_reconfigure" pkg="rqt_reconfigure" type="rqt_reconfigure" /> -->
+
+
+
+  <!-- <node name="rqt_reconfigure" pkg="rqt_reconfigure" type="rqt_reconfigure" /> -->
+
+  <!-- <node name="depth" pkg="sense" type="depth.py" /> -->
+
+</launch>

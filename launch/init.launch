@@ -1,0 +1,8 @@
+<launch>
+
+  <include file="$(find imu_vn_100)/launch/vn_100_cont.launch" />
+  <node name="switch" pkg="sense" type="switch" />
+  <node name="depth" pkg="sense" type="depth.py" />
+
+</launch>
+

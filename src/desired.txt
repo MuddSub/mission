@@ -1,0 +1,22 @@
+class axis:
+
+plantState[100] = {10 readings per second, rolling}
+  -purge if input type changes
+
+
+setSetpoint()
+setEnabled()
+setInputType()
+setPercentThrust()
+
+
+bool goTo(sensor, value);
+  -enable pid loop
+  -set input
+  -set setpoint
+  -return false if any of them failed
+
+bool isStable(time = 1s)
+  -if time > 10s, keep 10s
+  -return true if it's been within deadband for 1s
+    -check max and min
